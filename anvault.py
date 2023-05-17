@@ -1,18 +1,17 @@
-from ansible.parsing.vault import VaultLib
 # import subprocess
 # import os
+from ansible_vault import Vault
 
-password = "my_password"
-vault = VaultLib([(None, password)])
+vault = Vault('password')
+data = vault.load(open('file1.yml').read())
+print(data)
 
-# Encrypt data
-plaintext = "my sensitive data"
-encrypted_data = vault.encrypt(plaintext)
+target_file_name = 'file2.yml'
+# open(target_file_name, 'w').close()
 
-# Decrypt data
-decrypted_data = vault.decrypt(encrypted_data)
-
-print(decrypted_data)
+my_file = open(target_file_name, 'w')
+my_file.write(data)
+my_file.close()
 
 
 
